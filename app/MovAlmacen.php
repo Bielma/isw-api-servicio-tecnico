@@ -9,8 +9,12 @@ class MovAlmacen extends Model
     protected $table = "mov_almacen"; 
     public $timestamps = false;
     //Definir el nombre de nuestra primary key personalizada.
-    protected $primaryKey = 'id_producto';
+    protected $primaryKey = 'folio';
     protected $fillable = [
-        'id_producto', 'nombre', 'descripcion', 'precio', 'existencia', 'departamento'
+        'folio','fecha', 'empleado', 'folio_generador', 'tipo', 'motivo'
     ];
+
+    public function detalles(){
+        return $this->hasMany('App\DetalleMovAlmacen', 'folio', 'folio');
+    }
 }

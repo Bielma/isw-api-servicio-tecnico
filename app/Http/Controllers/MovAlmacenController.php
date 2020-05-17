@@ -34,4 +34,18 @@ class MovAlmacenController extends Controller
 
         return response() ->json($data, $data['code']);
     }
+
+    public function store(Request $request){
+        $json = $request -> input('datos', null);
+        $params_array = json_decode($json, true);
+        
+
+        $movAlmancen = new MovAlmacen();
+        $movAlmacen -> fecha = $params_array['fecha'];
+        $movAlmacen -> empleado = $params_array['empleado'];
+        $movAlmacen -> tipo = $params_array['tipo'];
+        $movAlmacen -> motivo = $params_array['motivo'];
+        $mov_almacen ->save();
+
+    }
 }
