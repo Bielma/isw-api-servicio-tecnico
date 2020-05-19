@@ -11,7 +11,7 @@ class VentaController extends Controller
     
     
     public function index(){
-        $ventas = Venta::all();
+        $ventas = Venta::all()->load('detalles');
         return response()->json([
            'code' => 200,
             'status' => 'succes',

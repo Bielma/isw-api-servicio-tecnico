@@ -92,5 +92,9 @@ class EmpleadoController extends Controller
         return response()->json($data, $data['code']);
     }
     
+    public function login(){
+        $jwtAuth = new \JwtAuth();
+        $jwtAuth -> singup();
+    }
 }
 

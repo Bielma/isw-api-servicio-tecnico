@@ -15,6 +15,6 @@ class AjusteInventario extends Model
     ];
 
      public function detalles(){
-        return $this->hasMany('App\DetalleAjusteInventario', 'folio', 'folio_devolucion');
+        return $this->hasMany('App\DetalleAjusteInventario', 'folio_detalle', 'folio_ajuste');
     }
 }

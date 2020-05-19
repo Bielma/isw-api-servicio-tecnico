@@ -9,7 +9,7 @@ class MovAlmacenController extends Controller
 {
     
     public function index(){
-        $mov_almacen = MovAlmacen::all();
+        $mov_almacen = MovAlmacen::all()->load('detalles');
         return response()->json([
            'code' => 200,
             'status' => 'succes',
@@ -18,7 +18,7 @@ class MovAlmacenController extends Controller
     }
 
     public function show($folio){
-        $mov_almacen = MovAlmacen::find($folio);
+        $mov_almacen = MovAlmacen::find($folio)->load('detalles');
         if(is_object($mov_almacen)){
             $data = [
                 'code' => 200,

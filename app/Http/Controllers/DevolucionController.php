@@ -9,7 +9,7 @@ use App\DetalleDevolucion;
 class DevolucionController extends Controller
 {
      public function index(){
-        $devoluciones = Devolucion::all();
+        $devoluciones = Devolucion::all()->load('detalles');
         return response()->json([
            'code' => 200,
             'status' => 'succes',
@@ -33,9 +33,9 @@ class DevolucionController extends Controller
        
         for($i= 0; $i<count($productos); $i++){
             $detalles = new DetalleDevolucion();            
-            $detalles -> id_producto = $productos[$i].['codigo'];                
-            $detalles -> cantidad = $productos[$i]['cantidad'];    
-            $detalles -> motivo = $productos[$i]['motivo'];              
+            $detalles -> id_producto = $productos[$i]['codigo'];
+            $detalles -> cantidad = $productos[$i]['cantidad'];  
+            $detalles -> motivo = $productos[$i]['motivo'];          
             $detalles -> folio_devolucion = $devolucion['folio_devolucion'];
             $detalles -> save();            
         }                    
@@ -49,5 +49,24 @@ class DevolucionController extends Controller
         
         return  response() -> json($data, $data['code']);                
         
+    }
+
+    public function show($folio){
+        $devolucion = Devolucion::find($folio) ->load('detalles');
+        if(is_object($devolucion)){
+            $data = [
+                'code' => 200,
+                'status' => 'succes',
+                'product' => $devolucion
+            ];            
+        }else{
+            $data = [
+                'code' => 404,
+                'status' => 'error',
+                'message' => 'Devolución no existe'
+            ];
+        }       
+        return response()-> json($data, $data['code']);
+
     }
 }

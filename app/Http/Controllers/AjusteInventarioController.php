@@ -9,7 +9,7 @@ use App\DetalleAjusteInventario;
 class AjusteInventarioController extends Controller
 {
     public function index(){
-        $ajusteInventario = AjusteInventario::all();
+        $ajusteInventario = AjusteInventario::all()->load('detalles');
         return response()->json([
            'code' => 200,
             'status' => 'succes',
@@ -18,7 +18,7 @@ class AjusteInventarioController extends Controller
     }
 
     public function show($folio){
-        $ajusteInventario = AjusteInventario::find($folio);
+        $ajusteInventario = AjusteInventario::find($folio)->load('detalles');
         if(is_object($ajusteInventario)){
             $data = [
                 'code' => 200,

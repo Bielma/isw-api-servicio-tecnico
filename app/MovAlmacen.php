@@ -15,6 +15,6 @@ class MovAlmacen extends Model
     ];
 
     public function detalles(){
-        return $this->hasMany('App\DetalleMovAlmacen', 'folio', 'folio');
+        return $this->hasMany('App\DetalleMovAlmacen', 'folio_detalle', 'folio');
     }
 }
