@@ -9,7 +9,6 @@ use App\Detalleventa;
 class VentaController extends Controller
 {
     
-    
     public function index(){
         $ventas = Venta::all()->load('detalles');
         return response()->json([
@@ -42,11 +41,7 @@ class VentaController extends Controller
             $detalles -> precio_a_la_fecha = $productos[$i]['precio'];    
             $detalles -> save();
             
-        }
-
-    
-        
-        
+        }                    
         //Respuesta de error. 
         $data = array(
           'status' => 'succes',
@@ -77,5 +72,7 @@ class VentaController extends Controller
         }
         
         return response() -> json($data, $data['code']);
-    }
-}
+on($data, $data['code']);
+        
+        
+        
