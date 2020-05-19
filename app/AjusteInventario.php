@@ -11,7 +11,7 @@ class AjusteInventario extends Model
     //Definir el nombre de nuestra primary key personalizada.
     protected $primaryKey = 'folio_ajuste';
     protected $fillable = [
-        'folio_ajuste','fecha', 'empleado'
+        'folio_ajuste','fecha', 'id_empleado'
     ];
 
      public function detalles(){
