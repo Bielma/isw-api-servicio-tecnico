@@ -11,7 +11,7 @@ class DetalleMovAlmacen extends Model
     //Definir el nombre de nuestra primary key personalizada.
     protected $primaryKey = 'folio_detalle';
     protected $fillable = [
-        'folio_detalle ', 'folio_mov_almancen', 'producto', 'cantidad'
+        'folio_detalle ', 'folio_mov_almacen', 'producto', 'cantidad'
     ];
     
 }
