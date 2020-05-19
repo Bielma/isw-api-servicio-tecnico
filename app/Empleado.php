@@ -12,10 +12,11 @@ class Empleado extends Authenticatable
 {
     //use Notifiable;
     
-    protected $table = "empleados"; 
+    protected $table = "empleados";  
     public $timestamps = false;
     //Definir el nombre de nuestra primary key personalizada.
     protected $primaryKey = 'rfc';
+    public $incrementing = false;
     protected $fillable = [
         'rfc', 'nombre', 'apellido', 'telefono', 'direccion', 'correo', 'puesto','contraseña'
     ];

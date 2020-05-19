@@ -49,15 +49,17 @@ class EmpleadoController extends Controller
         }else{
             $empleado = new Empleado();
             
-            $pwd = password_hash($params_array['contraseña'],PASSWORD_BCRYPT, ['const' => 4] );
+            $pwd = hash('sha256', $params_array['contraseña']);
+            //Regresa un cifrado diferente
+            //password_hash($params_array['contraseña'],PASSWORD_BCRYPT, ['const' => 4] );
             $empleado -> rfc = $params_array['rfc'];
             $empleado -> nombre = $params_array['nombre'];
             $empleado -> apellido = $params_array['apellido'];
             $empleado -> telefono = $params_array['telefono'];
-            $empleado -> direccion = $params_array['direccion'];
+            $empleado -> direccion = $params_array['direccion'];   
             $empleado -> correo = $params_array['correo'];
             $empleado -> puesto = $params_array['puesto'];
-            echo $pwd;
+//            echo $pwd;
             $empleado -> contraseña = $pwd;
             $empleado -> save();
             
@@ -92,9 +94,51 @@ class EmpleadoController extends Controller
         return response()->json($data, $data['code']);
     }
     
-    public function login(){
+    public function login(Request $request ){        
         $jwtAuth = new \JwtAuth();
-        $jwtAuth -> singup();
+        $json = $request -> input('datos', null);
+        $params_array = json_decode($json, true);
+
+        $validate = \Validator::make($params_array, [
+            'rfc'     => 'required',
+            'pass'    => 'required'
+        ]);
+
+        if($validate->fails()){
+            //Validacion fallida
+            $signup = array(
+                'code' => 404,
+                'status' => 'error',
+                'message' => 'Usuario no se ha podido identificar'
+            );
+        }else{
+            $id = $params_array['rfc'];        
+            $password = $params_array['pass'];    
+            $pwd = hash('sha256', $password);
+            $signup = $jwtAuth -> signup($id, $pwd);
+            if(!empty($params_array['get_token'])){
+                $signup = $jwtAuth -> signup($id, $pwd, true);
+            }
+
+        }
+        
+        return response()-> json($signup, 200 );
+    }
+
+    public function prueba(Request $request){
+        $token = $request -> header('Authorization');
+        $jwtAuth = new \JwtAuth();
+        $checkToken = $jwtAuth -> checkToken($token);
+        
+        if($checkToken){
+            $uwu = 'Ta bien';
+        }else{
+            $uwu = 'Ta mal';
+        }
+        //die();
+            
+        return $uwu;
+
     }
 }
 
