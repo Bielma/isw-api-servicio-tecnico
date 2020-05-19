@@ -18,8 +18,8 @@ Route::resource('/sem-isw/mov_almacen', 'MovAlmacenController');
 
 //Empleados
 Route::resource('/sem-isw/empleado', 'EmpleadoController');
-
 Route::POST('/sem-isw/login', 'EmpleadoController@login');
+Route::POST('/sem-isw/register', 'EmpleadoController@register');
 
 //Clientes
 Route::resource('/sem-isw/cliente', 'ClienteController');

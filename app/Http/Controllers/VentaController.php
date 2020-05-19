@@ -55,9 +55,27 @@ class VentaController extends Controller
             'venta' => $venta
         );
         
-        return  response() -> json($data, $data['code']);
+        return  response() -> json($data, $data['code']);                    
+    }
+
+    public function show($folio){
+        $venta = Venta::find($folio)->load('detalles');
+        if(is_object($venta)){
+            $data = array(
+                'status' => 'succes',
+                'code' => 200,
+                'venta' => $venta 
+            );
+
+        }else{
+            $data = array(
+                'status' => 'error',
+                'code' => 404,
+                'message' => 'Venta no existe'
+            );
+
+        }
         
-        
-        
+        return response() -> json($data, $data['code']);
     }
 }
