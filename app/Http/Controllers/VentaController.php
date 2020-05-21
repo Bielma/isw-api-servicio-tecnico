@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Venta;
 use App\Detalleventa;
-
+use App\Producto;
 class VentaController extends Controller
 {
     
@@ -24,10 +24,11 @@ class VentaController extends Controller
         //var_dump($params_array); die();
         
         $venta = new Venta();  
-        $venta -> fecha = $params_array['fecha'];
+        $venta -> fecha      = $params_array['fecha'];
         $venta -> id_cliente = $params_array['cliente'];
         $venta -> forma_pago = $params_array['forma_pago'];
-        $venta->id_empleado = $params_array['id_empleado'];                            
+        $venta -> id_empleado  = $params_array['id_empleado'];                            
+        $venta -> status  = "1";   
         $venta->save();
         
         //var_dump($venta['folio']); die();            
@@ -40,8 +41,14 @@ class VentaController extends Controller
             $detalles -> cantidad = $productos[$i]['cantidad'];    
             $detalles -> precio_a_la_fecha = $productos[$i]['precio'];    
             $detalles -> save();
+            //Actualizar stock de producto
+            $producto = Producto::find($productos[$i]['codigo']);
+            $producto_update = Producto::where('id_producto', $productos[$i]['codigo'] ) -> update(['existencia' => $producto ->existencia - $productos[$i]['cantidad']]);
             
-        }                    
+
+
+        }                   
+
         //Respuesta de error. 
         $data = array(
           'status' => 'succes',
@@ -72,7 +79,8 @@ class VentaController extends Controller
         }
         
         return response() -> json($data, $data['code']);
-on($data, $data['code']);
+    }
+}
         
         
         

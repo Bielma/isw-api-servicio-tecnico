@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\MovAlmacen;
 use App\DetalleMovAlmacen;
+use App\Producto;
 class MovAlmacenController extends Controller
 {
     
@@ -56,6 +57,13 @@ class MovAlmacenController extends Controller
             $detalles -> producto = $productos[$i]['codigo'];    
             $detalles -> cantidad = $productos[$i]['cantidad'];                            
             $detalles -> save();
+            $producto = Producto::find($productos[$i]['codigo']);
+            if(strcasecmp($params_array['tipo'], 'Entrada')==0){
+                $producto_update = Producto::where('id_producto', $productos[$i]['codigo'] ) -> update(['existencia' => $producto ->existencia + $productos[$i]['cantidad']]);                
+
+            }else{
+                $producto_update = Producto::where('id_producto', $productos[$i]['codigo'] ) -> update(['existencia' => $producto ->existencia - $productos[$i]['cantidad']]);
+            }
         }
 
 

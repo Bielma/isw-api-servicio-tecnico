@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Devolucion;
 use App\DetalleDevolucion;
-
+use App\Producto;
 class DevolucionController extends Controller
 {
      public function index(){
@@ -25,7 +25,8 @@ class DevolucionController extends Controller
         $devolucion = new Devolucion();  
         $devolucion -> folio_venta = $params_array['folioVenta'];
         $devolucion -> fecha = $params_array['fecha'];
-        
+        $devolucion -> id_empleado = $params_array['empleado'];
+        $devolucion -> status = "1";
         $devolucion->save();
         
                  
@@ -37,7 +38,9 @@ class DevolucionController extends Controller
             $detalles -> cantidad = $productos[$i]['cantidad'];  
             $detalles -> motivo = $productos[$i]['motivo'];          
             $detalles -> folio_devolucion = $devolucion['folio_devolucion'];
-            $detalles -> save();            
+            $detalles -> save();       
+            $producto = Producto::find($productos[$i]['codigo']);
+            $producto_update = Producto::where('id_producto', $productos[$i]['codigo'] ) -> update(['existencia' => $producto ->existencia + $productos[$i]['cantidad']]);     
         }                    
         //Respuesta de error. 
         $data = array(

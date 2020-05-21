@@ -11,7 +11,7 @@ class Devolucion extends Model
     //Definir el nombre de nuestra primary key personalizada.
     protected $primaryKey = 'folio_devolucion';
     protected $fillable = [
-        'folio_devolucion', 'folio_venta', 'fecha'
+        'folio_devolucion', 'folio_venta', 'fecha', 'id_empleado', 'status'
     ];
     //falta id_cliente
      public function detalles(){

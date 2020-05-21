@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\AjusteInventario;
 use App\DetalleAjusteInventario;
-
+use App\Producto;
 class AjusteInventarioController extends Controller
 {
     public function index(){
@@ -54,6 +54,8 @@ class AjusteInventarioController extends Controller
             $detalles -> cantidad = $productos[$i]['cantidad'];                
             $detalles -> motivo = $productos[$i]['motivo'];
             $detalles -> save();
+            $producto = Producto::find($productos[$i]['codigo']);
+            $producto_update = Producto::where('id_producto', $productos[$i]['codigo'] ) -> update(['existencia' => $producto ->existencia - $productos[$i]['cantidad']]);
         }
 
 

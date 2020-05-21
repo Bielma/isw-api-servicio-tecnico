@@ -10,7 +10,7 @@ class Venta extends Model
     public $timestamps = false;    
     protected $primaryKey = 'folio';
     protected $fillable = [
-        'folio','fecha', 'id_empleado', 'id_cliente', 'forma_pago',
+        'folio','fecha', 'id_empleado', 'id_cliente', 'forma_pago', 'status'
     ];
     
     //Relación de uno a muchos
