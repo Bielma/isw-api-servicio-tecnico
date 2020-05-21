@@ -24,26 +24,23 @@ class EmpleadoController extends Controller
         $json = $request->input('datos', null);
         $params_array = json_decode($json, true);
      
-
         //Validar datos
-
-   /*
-        $validate = \Validator::make($params_array, [
-            'rfc' => 'required',
-            'nombre' => 'required|alpha',
-            'correo' => 'required|email',
-            'puesto' => 'requiered|alpha',
-            'apellido' => 'required|alpha'
-        ]);*/
    
-        //if($validate->fails()){
-            $aber = false;
-            if(!true){
+        $validate = \Validator::make($params_array, [
+            
+            'rfc'       => 'required',
+            'nombre'    => 'required|alpha',
+            'correo'    => 'required|email',
+            'puesto'    => 'required',
+            'apellido'  => 'required'
+        ]);
+        
+        if($validate->fails()){            
             $data = array(
                 'status'=>'error',
-                'code'=> '2',
+                'code'=> '200',
                 'message'=> 'Empleado no se ha creado',
-                'errors' => $validate->erros()
+                'errors' => $validate->errors()
             );    
             return response() ->  json($data, $data['code']);
         }else{
@@ -59,7 +56,6 @@ class EmpleadoController extends Controller
             $empleado -> direccion = $params_array['direccion'];   
             $empleado -> correo = $params_array['correo'];
             $empleado -> puesto = $params_array['puesto'];
-//            echo $pwd;
             $empleado -> contraseña = $pwd;
             $empleado -> save();
             
@@ -71,6 +67,9 @@ class EmpleadoController extends Controller
 
         return  response() -> json($data, $data['code']);
         }        
+    }
+    public function actualizarInventario(){
+
     }
 
     public function show($rfc){
@@ -88,9 +87,7 @@ class EmpleadoController extends Controller
                 'status' => 'error',
                 'message' => 'Empleado no existe'
             ];
-        }
-        
-        
+        }                
         return response()->json($data, $data['code']);
     }
     
