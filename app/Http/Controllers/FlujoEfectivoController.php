@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 use App\FlujoEfectivo;
 class FlujoEfectivoController extends Controller
 {
+    public function __construct(){
+        $this->middleware('api.auth', ['except' =>['index', 'show']]);
+    }
     function store(Request $request){
+
         $json = $request ->input('datos', null);
         $params_array = json_decode($json, true);
 

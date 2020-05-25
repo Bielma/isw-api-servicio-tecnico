@@ -8,6 +8,10 @@ use App\DetalleAjusteInventario;
 use App\Producto;
 class AjusteInventarioController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('api.auth', ['except' =>['index', 'show']]);
+    }
     public function index(){
         $ajusteInventario = AjusteInventario::all()->load('detalles');
         return response()->json([

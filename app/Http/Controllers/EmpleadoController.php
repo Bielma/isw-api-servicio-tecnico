@@ -113,8 +113,10 @@ class EmpleadoController extends Controller
             $password = $params_array['pass'];    
             $pwd = hash('sha256', $password);
             $signup = $jwtAuth -> signup($id, $pwd);
+
+            
             if(!empty($params_array['get_token'])){
-                $signup = $jwtAuth -> signup($id, $pwd, true);
+                $signup = $jwtAuth -> signup($id, $pwd, true);              
             }
 
         }
@@ -123,7 +125,7 @@ class EmpleadoController extends Controller
     }
 
     public function prueba(Request $request){
-        $token = $request -> header('Authorization');
+       /* $token = $request -> header('Authorization');
         $jwtAuth = new \JwtAuth();
         $checkToken = $jwtAuth -> checkToken($token);
         
@@ -131,10 +133,11 @@ class EmpleadoController extends Controller
             $uwu = 'Ta bien';
         }else{
             $uwu = 'Ta mal';
-        }
+        }*/
         //die();
-            
+        $uwu = "asd"; 
         return $uwu;
+        //833
 
     }
 }

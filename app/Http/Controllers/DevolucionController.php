@@ -8,6 +8,9 @@ use App\DetalleDevolucion;
 use App\Producto;
 class DevolucionController extends Controller
 {
+    public function __construct(){
+        $this->middleware('api.auth', ['except' =>['index', 'show']]);
+    }
      public function index(){
         $devoluciones = Devolucion::all()->load('detalles');
         return response()->json([

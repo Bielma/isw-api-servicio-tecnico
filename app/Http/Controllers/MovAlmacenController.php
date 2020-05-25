@@ -8,7 +8,9 @@ use App\DetalleMovAlmacen;
 use App\Producto;
 class MovAlmacenController extends Controller
 {
-    
+    public function __construct(){
+        $this->middleware('api.auth', ['except' =>['index', 'show']]);
+    }
     public function index(){
         $mov_almacen = MovAlmacen::all()->load('detalles');
         return response()->json([

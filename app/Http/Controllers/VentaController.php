@@ -8,7 +8,9 @@ use App\Detalleventa;
 use App\Producto;
 class VentaController extends Controller
 {
-    
+    public function __construct(){
+        $this->middleware('api.auth', ['except' =>['index', 'show']]);
+    }
     public function index(){
         $ventas = Venta::all()->load('detalles');
         return response()->json([
