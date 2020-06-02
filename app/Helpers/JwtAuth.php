@@ -31,14 +31,22 @@ class JwtAuth {
         if($signup){
             $token = array(
                 'sub'       => $user -> rfc,
-                'nombre'    => $user -> nombre,                               
+                'nombre'    => $user -> nombre, 
+                'apellido' =>  $user -> apellido, 
+                'puesto'    =>  $user -> puesto, 
                 'ait'       => time(),
                 'exp'       => time() + (7*24 *60 *60)
             );
             $jwt = JWT::encode($token, $this->key, 'HS256');
             $decoded = JWT::decode ($jwt ,$this->key, ['HS256']);
             if(is_null($getToken)){
-                $data = $jwt;
+                
+                $data = array(
+                    'status'    => 'succes',
+                    'user'      => $token,
+                    'token'   => $jwt,
+                );
+                
             }else{
                 $data= $decoded;
             }

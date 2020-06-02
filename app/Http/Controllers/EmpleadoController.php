@@ -15,7 +15,7 @@ class EmpleadoController extends Controller
         return response()->json([
            'code' => 200,
             'status' => 'succes',
-            'products' => $empleados
+            'empleados' => $empleados
         ]);
     }
 
@@ -79,7 +79,7 @@ class EmpleadoController extends Controller
             $data = [
                 'code' => 200,
                 'status' => 'succes',
-                'product' => $empleado
+                'empleado' => $empleado
             ];            
         }else{
             $data = [
@@ -121,7 +121,7 @@ class EmpleadoController extends Controller
 
         }
         
-        return response()-> json($signup, 200 );
+        return response()-> json($signup, 200);
     }
 
     public function prueba(Request $request){

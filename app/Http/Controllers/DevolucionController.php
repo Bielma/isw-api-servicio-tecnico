@@ -58,12 +58,13 @@ class DevolucionController extends Controller
     }
 
     public function show($folio){
-        $devolucion = Devolucion::find($folio) ->load('detalles');
+        $devolucion = Devolucion::find($folio)->load('detalles');
+        //$devolucion = Devolucion::find($folio)->load('detalles');
         if(is_object($devolucion)){
             $data = [
                 'code' => 200,
                 'status' => 'succes',
-                'product' => $devolucion
+                'devolucion' => $devolucion
             ];            
         }else{
             $data = [

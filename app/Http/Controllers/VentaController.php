@@ -16,7 +16,7 @@ class VentaController extends Controller
         return response()->json([
            'code' => 200,
             'status' => 'succes',
-            'products' => $ventas
+            'ventas' => $ventas
         ]);
     }
     
