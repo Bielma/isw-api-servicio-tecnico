@@ -17,7 +17,7 @@ class AjusteInventarioController extends Controller
         return response()->json([
            'code' => 200,
             'status' => 'succes',
-            'movAlmacen' => $ajusteInventario
+            'ajustes' => $ajusteInventario
         ]);
     }
 
@@ -27,7 +27,7 @@ class AjusteInventarioController extends Controller
             $data = [
                 'code' => 200,
                 'status' => 'succes',
-                'movAlmacen' => $ajusteInventario
+                'ajuste' => $ajusteInventario
             ];            
         }else{
             $data = [
